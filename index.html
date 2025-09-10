@@ -1,0 +1,1268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nanda Zahran - CS Student Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Light theme colors */
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --accent-color: #7c3aed;
+            --text-dark: #1f2937;
+            --text-light: #6b7280;
+            --bg-light: #f9fafb;
+            --bg-section: #ffffff;
+            --white: #ffffff;
+            --footer-bg: #1f2937;
+            --footer-text: #ffffff;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --border-color: #e5e7eb;
+            --hover-bg: #f3f4f6;
+        }
+
+        [data-theme="dark"] {
+            /* Dark theme colors */
+            --primary-color: #60a5fa;
+            --secondary-color: #3b82f6;
+            --accent-color: #a78bfa;
+            --text-dark: #f9fafb;
+            --text-light: #d1d5db;
+            --bg-light: #111827;
+            --bg-section: #1f2937;
+            --white: #111827;
+            --footer-bg: #0f172a;
+            --footer-text: #f9fafb;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+            --border-color: #374151;
+            --hover-bg: #374151;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            overflow-x: hidden;
+            background-color: var(--bg-light);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        [data-theme="dark"] nav {
+            background: rgba(31, 41, 55, 0.95);
+        }
+
+        nav.scrolled {
+            padding: 0.5rem 0;
+            background: rgba(255, 255, 255, 0.98);
+        }
+
+        [data-theme="dark"] nav.scrolled {
+            background: rgba(31, 41, 55, 0.98);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--primary-color);
+        }
+
+        /* Dark mode toggle */
+        .theme-toggle {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            color: var(--text-dark);
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .theme-toggle:hover {
+            background: var(--hover-bg);
+            transform: rotate(180deg);
+        }
+
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-dark);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        [data-theme="dark"] .hero {
+            background: linear-gradient(135deg, #1e3a8a 0%, #581c87 100%);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,138.7C960,139,1056,117,1152,106.7C1248,96,1344,96,1392,96L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') no-repeat bottom;
+            background-size: cover;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            color: var(--white);
+            margin-bottom: 1rem;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .hero-text .subtitle {
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        .hero-text p {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.8s ease 0.4s both;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            animation: fadeInUp 0.8s ease 0.6s both;
+        }
+
+        .btn {
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--white);
+            color: var(--primary-color);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+        }
+
+        .btn-secondary:hover {
+            background: var(--white);
+            color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .hero-image {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .hero-image img {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Sections */
+        section {
+            padding: 5rem 0;
+            background-color: var(--bg-light);
+            transition: background-color 0.3s ease;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: var(--primary-color);
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-light);
+            margin-bottom: 3rem;
+        }
+
+        /* Education Section */
+        .education {
+            background-color: var(--bg-light);
+        }
+
+        .education-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .education-image {
+            text-align: center;
+        }
+
+        .education-image img {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: var(--shadow-lg);
+            transition: transform 0.3s ease;
+        }
+
+        .education-image img:hover {
+            transform: scale(1.05);
+        }
+
+        .education-text h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .education-text p {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+        }
+
+        .education-details {
+            background: var(--bg-section);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-top: 1rem;
+            box-shadow: var(--shadow);
+        }
+
+        .education-details h4 {
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .education-details p {
+            margin-bottom: 0.5rem;
+        }
+
+        .gpa {
+            display: inline-block;
+            background: var(--primary-color);
+            color: var(--white);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+
+        /* Coursework Section */
+        .coursework {
+            background-color: var(--bg-light);
+        }
+
+        .coursework-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .coursework-category {
+            background: var(--bg-section);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .coursework-category:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .coursework-category h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .course-list {
+            list-style: none;
+        }
+
+        .course-list li {
+            padding: 0.5rem 0;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .course-list li::before {
+            content: '▸';
+            color: var(--primary-color);
+        }
+
+        .course-grade {
+            margin-left: auto;
+            background: var(--accent-color);
+            color: var(--white);
+            padding: 0.1rem 0.5rem;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* Experience Timeline */
+        .experience {
+            position: relative;
+            background-color: var(--bg-light);
+        }
+
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background: var(--primary-color);
+            opacity: 0.3;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .timeline-item:nth-child(odd) {
+            padding-right: calc(50% + 2rem);
+            text-align: right;
+        }
+
+        .timeline-item:nth-child(even) {
+            padding-left: calc(50% + 2rem);
+            text-align: left;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            border: 4px solid var(--white);
+            box-shadow: var(--shadow);
+        }
+
+        .timeline-content {
+            background: var(--bg-section);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            transform: scale(1.02);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .timeline-logo {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1rem;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-logo {
+            margin-left: auto;
+        }
+
+        .timeline-logo:hover {
+            transform: scale(1.1);
+        }
+
+        .timeline-date {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        .timeline-organization {
+            color: var(--accent-color);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .timeline-description {
+            color: var(--text-light);
+        }
+
+        .timeline-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+            justify-content: flex-end;
+        }
+
+        .timeline-item:nth-child(even) .timeline-tags {
+            justify-content: flex-start;
+        }
+
+        .tag {
+            padding: 0.25rem 0.75rem;
+            background: var(--bg-light);
+            color: var(--primary-color);
+            border-radius: 15px;
+            font-size: 0.875rem;
+        }
+
+        /* Aspirations Section */
+        .aspirations {
+            background-color: var(--bg-light);
+        }
+
+        .aspirations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .aspiration-card {
+            background: var(--bg-section);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .aspiration-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .aspiration-icon {
+            font-size: 3rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+
+        .aspiration-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .aspiration-card p {
+            color: var(--text-light);
+        }
+
+        /* Contact Section */
+        .contact {
+            background-color: var(--bg-light);
+        }
+
+        .contact-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.5rem;
+            background: var(--bg-section);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .contact-item:hover {
+            transform: translateY(-5px);
+            background: var(--hover-bg);
+            box-shadow: var(--shadow);
+            color: var(--primary-color);
+        }
+
+        .contact-item i {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            width: 40px;
+            text-align: center;
+        }
+
+        .contact-item-content {
+            flex: 1;
+        }
+
+        .contact-item h4 {
+            margin-bottom: 0.25rem;
+            color: var(--text-dark);
+        }
+
+        .contact-item p {
+            color: var(--text-light);
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        .contact-item:hover .contact-item p {
+            color: var(--text-dark);
+        }
+
+        .external-link-icon {
+            font-size: 0.8rem;
+            margin-left: 0.5rem;
+            opacity: 0.7;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--footer-bg);
+            color: var(--footer-text);
+            padding: 3rem 0 1rem;
+            text-align: center;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-links a {
+            color: var(--footer-text);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-links a:hover {
+            color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                right: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background: var(--bg-section);
+                flex-direction: column;
+                align-items: center;
+                justify-content: start;
+                padding-top: 2rem;
+                transition: right 0.3s ease;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-image {
+                order: -1;
+            }
+
+            .education-content {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-item {
+                padding-left: 60px !important;
+                padding-right: 0 !important;
+                text-align: left !important;
+            }
+
+            .timeline-dot {
+                left: 20px;
+            }
+
+            .timeline-logo {
+                margin-left: 0 !important;
+            }
+
+            .timeline-tags {
+                justify-content: flex-start !important;
+            }
+
+            .aspirations-grid,
+            .coursework-grid,
+            .contact-info {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="#home" class="logo">NZ</a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home" class="nav-link active">Home</a></li>
+                <li><a href="#education" class="nav-link">Education</a></li>
+                <li><a href="#coursework" class="nav-link">Coursework</a></li>
+                <li><a href="#experience" class="nav-link">Experience</a></li>
+                <li><a href="#aspirations" class="nav-link">Aspirations</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+                <li>
+                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </li>
+            </ul>
+            <div class="mobile-menu" id="mobileMenu">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Hi, im Nanda Zahran</h1>
+                <p class="subtitle">Computer Science Student at IPB University</p>
+                <p>Second year Computer Science student passionate about technology education, community building, and creating inclusive spaces for learning. I believe in the power of collaboration and service to create meaningful impact.</p>
+                <div class="hero-buttons">
+                    <a href="#experience" class="btn btn-primary">My Journey</a>
+                    <a href="#contact" class="btn btn-secondary">Let's Connect</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="assets/IMG_5875.JPG" alt="Nanda Zahran">
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section class="education" id="education">
+        <div class="container">
+            <h2 class="section-title">Education</h2>
+            <p class="section-subtitle">My academic journey so far</p>
+            <div class="education-content">
+                <div class="education-image">
+                    <img src="assets/Logo-IPB-baru1000.png" alt="IPB University">
+                </div>
+                <div class="education-text">
+                    <h3>IPB University</h3>
+                    <p>Bachelor in Computer Science</p>
+                    <p>M0403241098</p>
+                    <p>Second Year Student | Expected Graduation: June 2028</p>
+                    
+                    <div class="education-details">
+                        <h4>Academic Interests</h4>
+                        <p>• Theoretical Computer Science</p>
+                        <p>• Quantum Computer Programming</p>
+                        <p>• Computer Organization & Systems</p>
+                        <p>• Mathematics for Computer Science</p>
+                        <span class="gpa">GPA: 3.77/4.0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Coursework Section -->
+    <section class="coursework" id="coursework">
+        <div class="container">
+            <h2 class="section-title">Relevant Coursework</h2>
+            <p class="section-subtitle">Building my foundation in computer science</p>
+            <div class="coursework-grid">
+                <div class="coursework-category">
+                    <h3><i class="fas fa-code"></i> Core CS Courses</h3>
+                    <ul class="course-list">
+                        <li>KOM1102: Berpikir Komputasional <span class="course-grade">A</span></li>
+                        <li>KOM120B: Algoritme dan Dasar Pemrograman <span class="course-grade">-</span></li>
+                        <li>KOM120E: Rangkaian Digital <span class="course-grade">-</span></li>
+                    </ul>
+                </div>
+                <div class="coursework-category">
+                    <h3><i class="fas fa-calculator"></i> Mathematics</h3>
+                    <ul class="course-list">
+                        <li>MAT1101: Matematika dan Berpikir Logis <span class="course-grade">A</span></li>
+                        <li>MAT1102: Kalkulus 1 <span class="course-grade">B</span></li>
+                        <li>KOM120D: Penghantar Matematika Komputasi <span class="course-grade">-</span></li>
+                    </ul>
+                </div>
+                <div class="coursework-category">
+                    <h3><i class="fas fa-lightbulb"></i> Data and Statistics</h3>
+                    <ul class="course-list">
+                        <li>STA1111: Statistika dan Analisis Data <span class="course-grade">A</span></li>
+                        <li>STA1202: Teori Peluang <span class="course-grade">-</span></li>
+                        <li>KOM120F: Basis Data <span class="course-grade">-</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Timeline -->
+    <section class="experience" id="experience">
+        <div class="container">
+            <h2 class="section-title">Organizations & Volunteering</h2>
+            <p class="section-subtitle">My journey in community leadership and teamwork</p>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <img src="assets/LogoIEEE.jpg" alt="Logo IEEE SB IPB" class="timeline-logo">
+                        <div class="timeline-date">2025 - Present</div>
+                        <div class="timeline-title">IEEE SB IPB</div>
+                        <div class="timeline-organization">Manager of Internal Development</div>
+                        <div class="timeline-description">
+                            Manage a Team of 5 in Improving the internal relation of IEEE SB IPB and fostering healthy cooperation to direcly improve the quality of all work program done by IEEE SB IPB
+                        </div>
+                        <div class="timeline-tags">
+                            <span class="tag">Leadership</span>
+                            <span class="tag">Event Planning</span>
+                            <span class="tag">Community Building</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <img src="assets/LogoITtod.jpg" alt="LogoITtod" class="timeline-logo">
+                        <div class="timeline-date">2025 - Present</div>
+                        <div class="timeline-title">IT Today 2025</div>
+                        <div class="timeline-organization">Staff of Event Organizer Division</div>
+                        <div class="timeline-description">
+                            Planning and Concepting the biggest event of the year done by Himalkom with over 200+ participants in bootcamp from 5 different universities and 600+ partcipants in national seminars that improve their knowledge about basic python and basic machine learning
+                        </div>
+                        <div class="timeline-tags">
+                            <span class="tag">Teamwork</span>
+                            <span class="tag">Event Planning</span>
+                            <span class="tag">Communication</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <img src="assets/LogoCPSC.jpg" alt="LogoCPSC" class="timeline-logo">
+                        <div class="timeline-date">2025 - Present</div>
+                        <div class="timeline-title">CPSC 2025</div>
+                        <div class="timeline-organization">Staff of Competition Division</div>
+                        <div class="timeline-description">
+                            Creating Challenging problem solving question related to Computer Science to High School Students that can improve their computative skills and find the next generation of Computer Science Students at IPB University
+                        </div>
+                        <div class="timeline-tags">
+                            <span class="tag">Comptetition</span>
+                            <span class="tag">Problem Solving</span>
+                            <span class="tag">Cooperation</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <img src="assets/LogoStemJadul.jpg" alt="logoStem" class="timeline-logo">
+                        <div class="timeline-date">2024</div>
+                        <div class="timeline-title">STEM 2024</div>
+                        <div class="timeline-organization">Staff of Logistics Division</div>
+                        <div class="timeline-description">
+                            Ensuring all logistical needs of STEM 2024 Completed ontime and well without any issues. Not only that but Also Help guide participants from various SMA in Bogor to building a website during the second half of the event.
+                        </div>
+                        <div class="timeline-tags">
+                            <span class="tag">Volunteering</span>
+                            <span class="tag">Mentoring</span>
+                            <span class="tag">Social Impact</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <img src="assets/logokpum.jpg" alt="logokpum" class="timeline-logo">
+                        <div class="timeline-date">2024</div>
+                        <div class="timeline-title">Panitia Kerja KPUM KM IPB 2024</div>
+                        <div class="timeline-organization">General Coordinator</div>
+                        <div class="timeline-description">
+                            Participating at the KPUM IPB in organizing the largest election on IPB University, an Election to determine the next President at BEM KM IPB University
+                        </div>
+                        <div class="timeline-tags">
+                            <span class="tag">Volunteering</span>
+                            <span class="tag">Communication</span>
+                            <span class="tag">Teamwork</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <img src="assets/LogoMPKSmanda.jpg" alt="LogoMPKSmanda" class="timeline-logo">
+                        <div class="timeline-date">2021 - 2022</div>
+                        <div class="timeline-title">MPK SMAN 2 Bogor</div>
+                        <div class="timeline-organization">Member of A Commision</div>
+                        <div class="timeline-description">
+                            Supervise while also providing input and direction regarding the work program carried out by OSIS SMAN 2 Bogor so as to improve the quality and results of the work program itself.
+                        </div>
+                        <div class="timeline-tags">
+                            <span class="tag">Leadership</span>
+                            <span class="tag">Teaching</span>
+                            <span class="tag">Event Planning</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Aspirations Section -->
+    <section class="aspirations" id="aspirations">
+        <div class="container">
+            <h2 class="section-title">Future Goals</h2>
+            <p class="section-subtitle">Where I hope to make an impact</p>
+            <div class="aspirations-grid">
+                <div class="aspiration-card">
+                    <div class="aspiration-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3>Technology Education</h3>
+                    <p>Develop accessible learning platforms and tools that make computer science education available to underserved communities.</p>
+                </div>
+                <div class="aspiration-card">
+                    <div class="aspiration-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Community Building</h3>
+                    <p>Create inclusive tech communities that support underrepresented groups in pursuing careers in technology.</p>
+                </div>
+                <div class="aspiration-card">
+                    <div class="aspiration-icon">
+                        <i class="fas fa-hands-helping"></i>
+                    </div>
+                    <h3>Social Impact</h3>
+                    <p>Work at the intersection of technology and social good, developing solutions for pressing global challenges.</p>
+                </div>
+                <div class="aspiration-card">
+                    <div class="aspiration-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3>Advanced Studies</h3>
+                    <p>Pursue graduate studies in Human-Computer Interaction to design more intuitive and accessible technology.</p>
+                </div>
+                <div class="aspiration-card">
+                    <div class="aspiration-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3>Global Outreach</h3>
+                    <p>Participate in international tech education initiatives and help bridge the digital divide worldwide.</p>
+                </div>
+                <div class="aspiration-card">
+                    <div class="aspiration-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3>Innovation</h3>
+                    <p>Contribute to open-source projects that empower developers and create tools for social change.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 class="section-title">Let's Connect</h2>
+            <p class="section-subtitle">Feel free to reach out through any of these channels</p>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <a href="mailto:alex.chen@stanford.edu" class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div class="contact-item-content">
+                            <h4>Email</h4>
+                            <p>Nanda_Zahran@proton.me</p>
+                        </div>
+                    </a>
+                    <a href="https://www.linkedin.com/in/nanda-zahran-syafiq-166008324/" target="_blank" class="contact-item">
+                        <i class="fab fa-linkedin"></i>
+                        <div class="contact-item-content">
+                            <h4>LinkedIn</h4>
+                            <p>linkedin.com/in/nanda-zahran <i class="fas fa-external-link-alt external-link-icon"></i></p>
+                        </div>
+                    </a>
+                    <a href="https://github.com/nandazahran" target="_blank" class="contact-item">
+                        <i class="fab fa-github"></i>
+                        <div class="contact-item-content">
+                            <h4>GitHub</h4>
+                            <p>github.com/nandazahran <i class="fas fa-external-link-alt external-link-icon"></i></p>
+                        </div>
+                    </a>
+                    <a href="assets/Nanda Zahran Syafiq__CV.docx.pdf" target="_blank" class="contact-item">
+                        <i class="fas fa-file-pdf"></i>
+                        <div class="contact-item-content">
+                            <h4>Resume/CV</h4>
+                            <p>Download PDF <i class="fas fa-external-link-alt external-link-icon"></i></p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="social-links">
+                <a href="https://github.com/nandazahran" target="_blank" title="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/nanda-zahran-syafiq-166008324/" target="_blank" title="LinkedIn">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://x.com/nanda_zahran" target="_blank" title="Twitter">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="https://medium.com/@nanda_zahran" target="_blank" title="Medium">
+                    <i class="fab fa-medium"></i>
+                </a>
+            </div>
+            <p>&copy; 2025 Nanda Zahran. All Rights Reserved</p>
+        </div>
+    </footer>
+
+    <script>
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        const icon = themeToggle.querySelector('i');
+
+        // Check for saved theme preference or default to light
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        body.setAttribute('data-theme', currentTheme);
+        updateThemeIcon(currentTheme);
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            body.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        });
+
+        function updateThemeIcon(theme) {
+            if (theme === 'dark') {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            } else {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            }
+        }
+
+        // Navigation scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        const mobileMenu = document.getElementById('mobileMenu');
+        const navLinks = document.getElementById('navLinks');
+        
+        mobileMenu.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            const icon = mobileMenu.querySelector('i');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                const icon = mobileMenu.querySelector('i');
+                icon.classList.add('fa-bars');
+                icon.classList.remove('fa-times');
+            });
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Active navigation link on scroll
+        const sections = document.querySelectorAll('section');
+        const navItems = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navItems.forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('href').slice(1) === current) {
+                    item.classList.add('active');
+                }
+            });
+        });
+
+        // Animate timeline items on scroll
+        const timelineItems = document.querySelectorAll('.timeline-item');
+        const observerOptions = {
+            threshold: 0.3,
+            rootMargin: '0px'
+        };
+
+        const timelineObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationDelay = '0.2s';
+                    entry.target.classList.add('animate');
+                }
+            });
+        }, observerOptions);
+
+        timelineItems.forEach(item => {
+            timelineObserver.observe(item);
+        });
+
+        // Typing effect for hero subtitle
+        const subtitle = document.querySelector('.hero-text .subtitle');
+        const text = subtitle.textContent;
+        subtitle.textContent = '';
+        let i = 0;
+
+        function typeWriter() {
+            if (i < text.length) {
+                subtitle.textContent += text.charAt(i);
+                i++;
+                setTimeout(typeWriter, 50);
+            }
+        }
+
+        // Start typing effect when page loads
+        setTimeout(typeWriter, 1000);
+    </script>
+</body>
+</html>
